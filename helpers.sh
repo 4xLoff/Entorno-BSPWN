@@ -718,7 +718,7 @@ function spotify(){
 function clean() {
     echo -ne "\n\t${purpleColour}We are cleaning everything.${endColour}"
     sudo rm -rf /home/$SUDO_USER/Downloads/*
-    sudo find . -type d -name "Entorno"  -exec rm -r {} \;
+    sudo find . -type d -name "Entorno-BSPWN"  -exec rm -r {} \;
     if [[ -f /etc/os-release ]]; then
         if grep -q "kali" /etc/os-release || grep -q "parrot" /etc/os-release || grep -q "ubuntu" /etc/os-release; then
             sudo apt --fix-broken install -y
