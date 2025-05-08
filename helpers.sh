@@ -36,6 +36,7 @@ function check_os() {
     sudo -u "$SUDO_USER" mkdir -p "/home/$SUDO_USER/Downloads"
     sudo find "/home/$SUDO_USER/" -type d -name "Entorno-BSPWN" -exec mv {} "/home/$SUDO_USER/Downloads/" \;
     cd /home/$SUDO_USER/Downloads
+    sed -i "s/#\$nrconf{kernelhints} = -1;/\$nrconf{kernelhints} = -1;/g" /etc/needrestart/needrestart.conf
     sudo sed -i "s/#NR_NOTIFYD_DISABLE_NOTIFY_SEND='1'/NR_NOTIFYD_DISABLE_NOTIFY_SEND='1'/" /etc/needrestart/notify.conf
     if [[ -f /etc/os-release && $(grep -q "kali" /etc/os-release; echo $?) -eq 0 ]]; then
         echo -e "\n${yellowColour}The system is Debian or Ubuntu${endColour}\n"
@@ -84,6 +85,7 @@ function check_os() {
 function update_debian() {
     echo -e "${yellowColour}Installing additional packages for the correct functioning of the environment.${endColour}"
     cd /home/$SUDO_USER/Downloads 
+    sudo apt install fusermount -y
     sudo apt remove --purge codium -y
     sudo apt remove --purge nvim -y
     sudo apt remove --purge neovim -y
@@ -118,7 +120,7 @@ function update_debian() {
         encfs enum4linux enum4linux-ng evince 
         evolution exiftool exploitdb extundelete 
         feh ffuf flameshot flite fontconfig 
-        freerdp2-dev freerdp2-x11 fuse fusermount 
+        freerdp2-dev freerdp2-x11 fuse 
         gcc-multilib gdb gimp gitleaks glusterfs-server 
         gnupg gospider gpp-decrypt gss-ntlmssp 
         hash-identifier hexchat hexedit html2text 
