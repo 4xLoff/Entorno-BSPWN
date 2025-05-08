@@ -13,6 +13,7 @@ turquoiseColour="\e[0;36m\033[1m"
 grayColour="\e[0;37m\033[1m"
 
 export DEBIAN_FRONTEND=noninteractive
+APT_FLAGS="-yq -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold'"
 
 trap ctrl_c INT
 
@@ -167,7 +168,7 @@ function update_debian() {
         zsh-syntax-highlighting
     )
     for package in "${packages[@]}"; do
-        if sudo apt install "$package" -y ;then
+        if sudo apt-get install $APT_FLAGS "$package" ;then
             echo -e "${yellowColour}The package $package has been installed correctly.${endColour}"
         else
             echo -e "${redColour}The package $package didn't install.${endColour}"
