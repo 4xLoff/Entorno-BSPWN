@@ -34,12 +34,12 @@ function check() {
 
 function check_os() {
     sudo -u "$SUDO_USER" mkdir -p "/home/$SUDO_USER/Downloads"
-    sudo find "/home/$SUDO_USER/" -type d -name "Entorno" -exec mv {} "/home/$SUDO_USER/Downloads/" \;
+    sudo find "/home/$SUDO_USER/" -type d -name "Entorno-BSPWN" -exec mv {} "/home/$SUDO_USER/Downloads/" \;
     cd /home/$SUDO_USER/Downloads
     sudo sed -i "s/#NR_NOTIFYD_DISABLE_NOTIFY_SEND='1'/NR_NOTIFYD_DISABLE_NOTIFY_SEND='1'/" /etc/needrestart/notify.conf
     if [[ -f /etc/os-release && $(grep -q "kali" /etc/os-release; echo $?) -eq 0 ]]; then
         echo -e "\n${yellowColour}The system is Debian or Ubuntu${endColour}\n"
-	    sudo apt install curl wget git dpkg gnupg -y
+	sudo apt install curl wget git dpkg gnupg -y
         update_debian
     elif [[ -f /etc/os-release && $(grep -q "parrot" /etc/os-release; echo $?) -eq 0 || -f /etc/os-release && $(grep -q "ubuntu" /etc/os-release; echo $?) -eq 0 ]]; then
         echo -e "\n${yellowColour}The system is Debian or Ubuntu${endColour}\n"
