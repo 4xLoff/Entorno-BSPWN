@@ -301,7 +301,8 @@ function core_package(){
     #Install gem Packeage
     sudo gem install evil-winrm http httpx docopt rest-client colored2 wpscan winrm-fs stringio logger fileutils winrm brakeman
     echo -e "${yellowColour}Install python3 tools.${endColour}"
-    sudo python3 -m pipx install impacket git-dumper --break-system-packages
+    sudo python3 -m pipx install impacket --system-site-packages
+    sudo python3 -m pipx install git-dumper --system-site-packages
     sudo python3 -m pip install --upgrade pwntools --break-system-packages
     #Install go Packeage
     echo -e "${yellowColour}Install go tools.${endColour}"
