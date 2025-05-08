@@ -506,8 +506,10 @@ function enviroment(){
     sudo wget -q https://github.com/neovim/neovim-releases/releases/download/v0.10.1/nvim-linux64.deb 
     sudo dpkg -i nvim-linux64.deb 
     sudo -u "$SUDO_USER" git clone https://github.com/NvChad/starter /home/$SUDO_USER/.config/nvim && nvim
+    sudo -u "$SUDO_USER" nvim --headless '+Lazy! sync' +qa
     sudo rm -rf /root/.config/nvim
     sudo git clone https://github.com/NvChad/starter /root/.config/nvim && nvim
+    sudo nvim --headless '+Lazy! sync' +qa
     sudo ln -s -f "/home/$SUDO_USER/.p10k.zsh" "/root/.p10k.zsh"
     sudo usermod --shell /usr/bin/zsh "$SUDO_USER"
     sudo usermod --shell /usr/bin/zsh root
