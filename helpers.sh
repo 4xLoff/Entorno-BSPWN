@@ -112,8 +112,7 @@ function update_debian() {
         cloud-enum cmake cmake-data crackmapexec 
         crunch cutycapt davtest dbeaver derby-tools 
         default-mysql-client dex2jar dh-autoreconf 
-        djvulibre-bin dnsrecon docker.io 
-        dotnet-sdk-3.1 dotnet-sdk-6.0 dotnet-sdk-8.0 
+        djvulibre-bin dnsrecon docker.io dotnet-sdk-6.0 
         encfs enum4linux enum4linux-ng evince 
         evolution exiftool exploitdb extundelete 
         feh ffuf flameshot flite fontconfig 
