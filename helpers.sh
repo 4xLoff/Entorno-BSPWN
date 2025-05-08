@@ -34,7 +34,7 @@ function check() {
 
 function check_os() {
     sudo -u "$SUDO_USER" mkdir -p "/home/$SUDO_USER/Downloads"
-    sudo find "/home/$SUDO_USER/" -type d -name "Entorno-BSPWN-BSPWN" -exec mv {} "/home/$SUDO_USER/Downloads/" \;
+    sudo find "/home/$SUDO_USER/" -type d -name "Entorno-BSPWN" -exec mv {} "/home/$SUDO_USER/Downloads/" \;
     cd /home/$SUDO_USER/Downloads
     sed -i "s/#\$nrconf{kernelhints} = -1;/\$nrconf{kernelhints} = -1;/g" /etc/needrestart/needrestart.conf
     sudo sed -i "s/#NR_NOTIFYD_DISABLE_NOTIFY_SEND='1'/NR_NOTIFYD_DISABLE_NOTIFY_SEND='1'/" /etc/needrestart/notify.conf
@@ -165,7 +165,7 @@ function update_debian() {
         steghide sublist3r subversion suckless-tools sucrack 
         swaks tcpdump tesseract-ocr tigervnc-viewer tnscmd10g 
         translate-shell uthash-dev veil vim wayland-protocols 
-        wbasic whatweb wkhtmltopdf wmis xcb-proto xclip xpdf 
+        amass whatweb wkhtmltopdf wmis xcb-proto xclip xpdf 
         xtightvncviewer zbar-tools zlib1g-dev zsh 
         zsh-syntax-highlighting
     )
@@ -180,7 +180,7 @@ function update_debian() {
     echo -e "${yellowColour}Cleaning up and updating package database.${endColour}"
     sudo updatedb
     echo -e "${greenColour}All packages installed successfully.${endColour}"
-    sudo -u "$SUDO_USER" cp "/home/$SUDO_USER/Downloads/Entorno-BSPWN-BSPWN/.zshrc-debian" "/home/$SUDO_USER/.zshrc" 
+    sudo -u "$SUDO_USER" cp "/home/$SUDO_USER/Downloads/Entorno-BSPWN/.zshrc-debian" "/home/$SUDO_USER/.zshrc" 
     sudo ln -s -f "/home/$SUDO_USER/.zshrc" "/root/.zshrc"
 }
 
@@ -240,7 +240,7 @@ function update_arch(){
         xorg-xrandr xorg-xsetroot xorg-xwininfo 
         xpdf xqp xsettingsd xwinwrap-0.9-bin 
         yay yazi zlib zsh zsh-syntax-highlighting
-        lsd locate
+        lsd locate slapd ldap-utils
     )
     for package in "${packages[@]}"; do
         if sudo pacman -S "$package" --noconfirm ;then
@@ -259,7 +259,7 @@ function update_arch(){
     echo -e "${yellowColour}Cleaning up and updating package database.${endColour}"
     sudo updatedb
     echo -e "${greenColour}All packages installed successfully.${endColour}"
-    sudo -u "$SUDO_USER" cp "/home/$SUDO_USER/Downloads/Entorno-BSPWN-BSPWN/.zshrc-arch" "/home/$SUDO_USER/.zshrc" 
+    sudo -u "$SUDO_USER" cp "/home/$SUDO_USER/Downloads/Entorno-BSPWN/.zshrc-arch" "/home/$SUDO_USER/.zshrc" 
     sudo ln -s -f "/home/$SUDO_USER/.zshrc" "/root/.zshrc"
     sudo mkdir -p /usr/share/fonts/truetype
 }
@@ -285,7 +285,7 @@ function core_package(){
     sudo -H pip3 install git+https://github.com/ly4k/ldap3 --break-system-packages
     sudo -H pip3 install --upgrade paramiko cryptography pyOpenSSL scapy awscli botocore urllib3 --break-system-packages
     sudo -H pip3 install --user pysmb --break-system-packages
-    sudo -H pip3 install cheroot wsgidav gitpython impacket minikerbero ezodf pyreadline3 oathtool oletools pwncat-cs pwntools updog wsgidav pypykatz python-ldap html2markdown scapy colored oletools droopescan uncompyle6 web3 acefile bs4 pyinstaller flask-unsign uncompyle6 pyDes fake_useragent alive_progress githack bopscrk pwncat-cs hostapd-mana git-dumper six crawley certipy-ad pypykatz chepy minidump minikerberos aiowinreg msldap winacl ezodf pymemcache --break-system-packages
+    sudo -H pip3 install cheroot wsgidav gitpython impacket minikerbero ezodf pyreadline3 oathtool oletools pwncat-cs pwntools updog wsgidav pypykatz python-ldap html2markdown scapy colored oletools droopescan uncompyle6 web3 acefile bs4 pyinstaller flask-unsign uncompyle6 pyDes fake_useragent alive_progress githack bopscrk pwncat-cs hostapd-mana git-dumper six crawley certipy-ad pypykatz chepy minidump minikerberos aiowinreg msldap winacl ezodf pymemcache holehe html2markdown --break-system-packages
     #Install pip2 Packeage
     echo -e "${yellowColour}Install python2 tools.${endColour}"
     cd /tmp
@@ -311,7 +311,13 @@ function core_package(){
     wget https://go.dev/dl/go1.21.4.linux-amd64.tar.gz
     sudo tar -C /usr/local/ -xzf go1.21.4.linux-amd64.tar.gz 
     sudo go install github.com/benbusby/namebuster@latest
+    sudo go install github.com/Josue87/gotator@latest
+    sudo go install github.com/d3mondev/puredns/v2@latest
     sudo go install github.com/fullstorydev/grpcurl/cmd/grpcurl@latest
+    sudo go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest 
+    sudo go install -v github.com/projectdiscovery/dnsx/cmd/dnsx@latest 
+    sudo go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest CGO_ENABLED=1 
+    sudo go install github.com/projectdiscovery/katana/cmd/katana@latest
     echo -e "${yellowColour}Install npm tools.${endColour}"
     sudo npm install -g safe-backup wscat asar memcached-cli node-serialize slendr electron-packager
     cd /home/$SUDO_USER/Downloads
@@ -421,7 +427,7 @@ function enviroment(){
     cd /home/$SUDO_USER/Downloads
     sudo git clone https://github.com/adi1090x/polybar-themes.git
     cd polybar-themes
-    cp "/home/$SUDO_USER/Downloads/Entorno-BSPWN-BSPWN/setup.sh" "/home/$SUDO_USER/Downloads/polybar-themes/setup.sh"
+    cp "/home/$SUDO_USER/Downloads/Entorno-BSPWN/setup.sh" "/home/$SUDO_USER/Downloads/polybar-themes/setup.sh"
     cd /home/$SUDO_USER/Downloads/polybar-themes
     sudo chmod +x setup.sh
     ./setup.sh
@@ -720,7 +726,7 @@ function spotify(){
 function clean() {
     echo -ne "\n\t${purpleColour}We are cleaning everything.${endColour}"
     sudo rm -rf /home/$SUDO_USER/Downloads/*
-    sudo find . -type d -name "Entorno-BSPWN-BSPWN"  -exec rm -r {} \;
+    sudo find . -type d -name "Entorno-BSPWN"  -exec rm -r {} \;
     if [[ -f /etc/os-release ]]; then
         if grep -q "kali" /etc/os-release || grep -q "parrot" /etc/os-release || grep -q "ubuntu" /etc/os-release; then
             sudo apt --fix-broken install -y
