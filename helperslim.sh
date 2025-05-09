@@ -14,6 +14,8 @@ grayColour="\e[0;37m\033[1m"
 
 export DEBIAN_FRONTEND=noninteractive
 
+APT_FLAGS=(-yq -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold")
+
 trap ctrl_c INT
 
 function ctrl_c(){
@@ -31,8 +33,9 @@ function check() {
 
 function check_os() {
     sudo -u "$SUDO_USER" mkdir -p "/home/$SUDO_USER/Downloads"
-    sudo find "/home/$SUDO_USER/" -type d -name "Entorno" -exec mv {} "/home/$SUDO_USER/Downloads/" \;
+    sudo find "/home/$SUDO_USER/" -type d -name "Entorno-BSPWN" -exec mv {} "/home/$SUDO_USER/Downloads/" \;
     cd /home/$SUDO_USER/Downloads
+    sudo sed -i "s/#\$nrconf{kernelhints} = -1;/\$nrconf{kernelhints} = -1;/g" /etc/needrestart/needrestart.conf
     sudo sed -i "s/#NR_NOTIFYD_DISABLE_NOTIFY_SEND='1'/NR_NOTIFYD_DISABLE_NOTIFY_SEND='1'/" /etc/needrestart/notify.conf
     if [[ -f /etc/os-release && $(grep -q "kali" /etc/os-release; echo $?) -eq 0 ]]; then
         echo -e "\n${yellowColour}The system is Debian or Ubuntu${endColour}\n"
@@ -144,7 +147,7 @@ function update_debian() {
     echo -e "${yellowColour}Cleaning up and updating package database.${endColour}"
     sudo updatedb
     echo -e "${greenColour}All packages installed successfully.${endColour}"
-    sudo -u "$SUDO_USER" cp "/home/$SUDO_USER/Downloads/Entorno/.zshrc-debian" "/home/$SUDO_USER/.zshrc" 
+    sudo -u "$SUDO_USER" cp "/home/$SUDO_USER/Downloads//.zshrc-debian" "/home/$SUDO_USER/.zshrc" 
     sudo ln -s -f "/home/$SUDO_USER/.zshrc" "/root/.zshrc"
 }
 
@@ -209,7 +212,7 @@ function update_arch(){
     echo -e "${yellowColour}Cleaning up and updating package database.${endColour}"
     sudo updatedb
     echo -e "${greenColour}All packages installed successfully.${endColour}"
-    sudo -u "$SUDO_USER" cp "/home/$SUDO_USER/Downloads/Entorno/.zshrc-arch" "/home/$SUDO_USER/.zshrc" 
+    sudo -u "$SUDO_USER" cp "/home/$SUDO_USER/Downloads/Entorno-BSPWN/.zshrc-arch" "/home/$SUDO_USER/.zshrc" 
     sudo ln -s -f "/home/$SUDO_USER/.zshrc" "/root/.zshrc"
     sudo mkdir -p /usr/share/fonts/truetype
 }
@@ -221,7 +224,7 @@ function core_package(){
     cd /home/$SUDO_USER/Downloads
     sudo git clone https://github.com/adi1090x/polybar-themes.git
     cd polybar-themes
-    cp "/home/$SUDO_USER/Downloads/Entorno/setup.sh" "/home/$SUDO_USER/Downloads/polybar-themes/setup.sh"
+    cp "/home/$SUDO_USER/Downloads/Entorno-BSPWN/setup.sh" "/home/$SUDO_USER/Downloads/polybar-themes/setup.sh"
     cd /home/$SUDO_USER/Downloads/polybar-themes
     sudo chmod +x setup.sh
     ./setup.sh
@@ -310,7 +313,7 @@ function enviroment(){
     cd /home/$SUDO_USER/Downloads
     sudo git clone https://github.com/adi1090x/polybar-themes.git
     cd polybar-themes
-    cp "/home/$SUDO_USER/Downloads/Entorno/setup.sh" "/home/$SUDO_USER/Downloads/polybar-themes/setup.sh"
+    cp "/home/$SUDO_USER/Downloads/Entorno-BSPWN/setup.sh" "/home/$SUDO_USER/Downloads/polybar-themes/setup.sh"
     cd /home/$SUDO_USER/Downloads/polybar-themes
     sudo chmod +x setup.sh
     ./setup.sh
@@ -321,17 +324,17 @@ function enviroment(){
     #--panels    --pwidgets       --shades    --shapes
     #CopyFiles    
     echo -e "${yellowColour}Move files configuration.${endColour}"
-    sudo -u "$SUDO_USER" cp -r "/home/$SUDO_USER/Downloads/Entorno/bspwm" "/home/$SUDO_USER/.config/"
-    sudo -u "$SUDO_USER" cp -r "/home/$SUDO_USER/Downloads/Entorno/sxhkd" "/home/$SUDO_USER/.config/"
-    sudo -u "$SUDO_USER" cp -r "/home/$SUDO_USER/Downloads/Entorno/picom" "/home/$SUDO_USER/.config/"
-    sudo -u "$SUDO_USER" cp -r "/home/$SUDO_USER/Downloads/Entorno/kitty" "/home/$SUDO_USER/.config/"
-    sudo -u "$SUDO_USER" cp -r "/home/$SUDO_USER/Downloads/Entorno/rofi" "/home/$SUDO_USER/.config/"
-    sudo cp "/home/$SUDO_USER/Downloads/Entorno/fastTCPscan.go" "/opt/fastTCPscan"
+    sudo -u "$SUDO_USER" cp -r "/home/$SUDO_USER/Downloads/Entorno-BSPWN/bspwm" "/home/$SUDO_USER/.config/"
+    sudo -u "$SUDO_USER" cp -r "/home/$SUDO_USER/Downloads/Entorno-BSPWN/sxhkd" "/home/$SUDO_USER/.config/"
+    sudo -u "$SUDO_USER" cp -r "/home/$SUDO_USER/Downloads/Entorno-BSPWN/picom" "/home/$SUDO_USER/.config/"
+    sudo -u "$SUDO_USER" cp -r "/home/$SUDO_USER/Downloads/Entorno-BSPWN/kitty" "/home/$SUDO_USER/.config/"
+    sudo -u "$SUDO_USER" cp -r "/home/$SUDO_USER/Downloads/Entorno-BSPWN/rofi" "/home/$SUDO_USER/.config/"
+    sudo cp "/home/$SUDO_USER/Downloads/Entorno-BSPWN/fastTCPscan.go" "/opt/fastTCPscan"
     sudo chmod 755 /opt/fastTCPscan
     sudo ln -s -f "/opt/fastTCPscan" "/usr/local/bin/fastTCPscan"
-    sudo -u "$SUDO_USER" cp -r "/home/$SUDO_USER/Downloads/Entorno/polybar/forest" "/home/$SUDO_USER/.config/polybar/forest"
-    sudo -u "$SUDO_USER" cp "/home/$SUDO_USER/Downloads/Entorno/polybar/launch.sh" "/home/$SUDO_USER/.config/polybar/launch.sh"
-    sudo -u "$SUDO_USER" cp "/home/$SUDO_USER/Downloads/Entorno/.p10k.zsh" "/home/$SUDO_USER/.p10k.zsh"
+    sudo -u "$SUDO_USER" cp -r "/home/$SUDO_USER/Downloads/Entorno-BSPWN/polybar/forest" "/home/$SUDO_USER/.config/polybar/forest"
+    sudo -u "$SUDO_USER" cp "/home/$SUDO_USER/Downloads/Entorno-BSPWN/polybar/launch.sh" "/home/$SUDO_USER/.config/polybar/launch.sh"
+    sudo -u "$SUDO_USER" cp "/home/$SUDO_USER/Downloads/Entorno-BSPWN/.p10k.zsh" "/home/$SUDO_USER/.p10k.zsh"
     sudo chmod +x "/home/$SUDO_USER/.config/sxhkd/sxhkdrc"
     sudo chmod +x "/home/$SUDO_USER/.config/bspwm/bspwmrc"
     sudo chmod +x "/home/$SUDO_USER/.config/bspwm/scripts/bspwm_resize"
@@ -350,7 +353,7 @@ function enviroment(){
     sudo chmod +x "/home/$SUDO_USER/.config/polybar/forest/scripts/styles.sh"
     sudo chmod +x "/home/$SUDO_USER/.config/polybar/forest/scripts/updates.sh"
     sudo mkdir -p /opt/whichSystem
-    cp "/home/$SUDO_USER/Downloads/Entorno/whichSystem.py" "/opt/whichSystem/whichSystem.py"
+    cp "/home/$SUDO_USER/Downloads/Entorno-BSPWN/whichSystem.py" "/opt/whichSystem/whichSystem.py"
     sudo ln -s -f "/opt/whichSystem/whichSystem.py" "/usr/local/bin/"
     #InstallPower
     echo -e "${yellowColour}Download powerlevel10k.${endColour}"
@@ -369,7 +372,7 @@ function enviroment(){
     echo -e "${yellowColour}Configuration wallpaper.${endColour}"
     cd /home/$SUDO_USER/Downloads
     sudo -u "$SUDO_USER" mkdir -p /home/$SUDO_USER/Pictures
-    sudo cp -r /home/$SUDO_USER/Downloads/Entorno/3.png /home/$SUDO_USER/Pictures
+    sudo cp -r /home/$SUDO_USER/Downloads/Entorno-BSPWN/3.png /home/$SUDO_USER/Pictures
     echo -e "${yellowColour}Install plugin sudo.${endColour}"
     sudo mkdir /usr/share/zsh-sudo
     sudo wget -q https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh
@@ -398,7 +401,9 @@ function enviroment(){
     sudo dpkg -i nvim-linux64.deb 
     sudo -u "$SUDO_USER" git clone https://github.com/NvChad/starter /home/$SUDO_USER/.config/nvim && nvim
     sudo rm -rf /root/.config/nvim
+    sudo -u "$SUDO_USER" nvim --headless '+Lazy! sync' +qa
     sudo git clone https://github.com/NvChad/starter /root/.config/nvim && nvim
+    sudo nvim --headless '+Lazy! sync' +qa
     sudo ln -s -f "/home/$SUDO_USER/.p10k.zsh" "/root/.p10k.zsh"
     sudo usermod --shell /usr/bin/zsh "$SUDO_USER"
     sudo usermod --shell /usr/bin/zsh root
@@ -433,7 +438,7 @@ function spotify(){
     cd zscroll
     sudo python3 setup.py install
     sudo rm "/home/$SUDO_USER/.config/polybar/forest/user_modules.ini"
-    sudo -u "$SUDO_USER" cp "/home/$SUDO_USER/Downloads/Entorno/polybar/forest/user_modules-copia.ini" "/home/$SUDO_USER/.config/polybar/forest/user_modules.ini"
+    sudo -u "$SUDO_USER" cp "/home/$SUDO_USER/Downloads/Entorno-BSPWN/polybar/forest/user_modules-copia.ini" "/home/$SUDO_USER/.config/polybar/forest/user_modules.ini"
     if [[ -f /etc/os-release ]]; then
         if grep -q "kali" /etc/os-release || grep -q "parrot" /etc/os-release || grep -q "ubuntu" /etc/os-release; then
             echo -e "${greenColour}Install spotify.${endColour}"
@@ -461,7 +466,7 @@ function spotify(){
 function clean() {
     echo -ne "\n\t${purpleColour}We are cleaning everything.${endColour}"
     sudo rm -rf /home/$SUDO_USER/Downloads/*
-    sudo find . -type d -name "Entorno"  -exec rm -r {} \;
+    sudo find . -type d -name "Entorno-BSPWN"  -exec rm -r {} \;
     if [[ -f /etc/os-release ]]; then
         if grep -q "kali" /etc/os-release || grep -q "parrot" /etc/os-release || grep -q "ubuntu" /etc/os-release; then
             sudo apt --fix-broken install -y
