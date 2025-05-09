@@ -107,7 +107,32 @@ function update_debian() {
         sudo dpkg --add-architecture i386
     fi
     packages=(
-        acl adb antiword apktool aptitude
+        lftp libasound2-dev libbsd-dev libbz2-dev
+        libcairo2-dev libconfig-dev libcryptsetup-dev 
+        libdb5.3-dev libdbus-1-dev libemail-outlook-message-perl 
+        libev-dev libevdev-dev libffi-dev 
+        libfontconfig1-dev libgdbm-dev libgl1-mesa-dev 
+        libglib2.0-dev libharfbuzz-dev libjsoncpp-dev 
+        liblcms2-2 libldap2-dev liblzma-dev 
+        libmemcached-tools libmpdclient-dev libncurses5-dev 
+        libncursesw5-dev libnetfilter-queue-dev 
+        libnl-genl-3-dev libpcap-dev libpcre2-dev 
+	libpcre3-dev libpixman-1-dev libpng16-16 
+ 	libpopt-dev libprotobuf-dev libproxychains4 
+  	libpst-dev libpulse-dev libpython3-dev 
+        libqt5sensors5 libqt5webkit5 libreadline-dev 
+	libreoffice librsync-dev libsasl2-dev 
+ 	libsmbclient libsqlite3-dev libssl-dev 
+  	libuv1-dev libx11-xcb-dev libxcb1-dev 
+        libxcb-composite0-dev libxcb-cursor-dev libxcb-damage0-dev
+        libxcb-ewmh-dev libxcb-glx0-dev libxcb-icccm4-dev 
+        libxcb-keysyms1-dev libxcb-present-dev libxcb-randr0-dev 
+        libxcb-render0-dev libxcb-render-util0-dev libxcb-shape0-dev 
+        libxcb-util0-dev libxcb-xfixes0-dev libxcb-xinerama0-dev 
+        libxcb-xkb-dev libxcb-xrm-dev libxcb-xtest0-dev libxcursor-dev 
+        libxext-dev libxi-dev libxinerama-dev libxkbcommon-x11-dev 
+        libxrandr-dev libxxhash-dev acl 
+	adb antiword apktool aptitude
         apt-transport-https autoconf awscli 
         bc bd binwalk bloodhound bruteforce-luks 
         bspwm build-essential bzip2-doc cadaver 
@@ -126,30 +151,8 @@ function update_debian() {
         hurl imagemagick impacket-scripts 
         inetutils-ftp irssi jadx jd-gui jq kcat 
         keepassxc kitty knockd kpcli krb5-user 
-        lftp libasound2-dev libbsd-dev libbz2-dev
-        libcairo2-dev libconfig-dev libcryptsetup-dev 
-        libdb5.3-dev libdbus-1-dev libemail-outlook-message-perl 
-        libev-dev libevdev-dev libffi-dev 
-        libfontconfig1-dev libgdbm-dev libgl1-mesa-dev 
-        libglib2.0-dev libharfbuzz-dev libjsoncpp-dev 
-        liblcms2-2 libldap2-dev liblzma-dev 
-        libmemcached-tools libmpdclient-dev libncurses5-dev 
-        libncursesw5-dev libnetfilter-queue-dev 
-        libnl-genl-3-dev libpcap-dev libpcre2-dev libpcre3-dev 
-        libpixman-1-dev libpng16-16 libpopt-dev libprotobuf-dev 
-        libproxychains4 libpst-dev libpulse-dev libpython3-dev 
-        libqt5sensors5 libqt5webkit5 libreadline-dev libreoffice 
-        librsync-dev libsasl2-dev libsmbclient libsqlite3-dev 
-        libssl-dev libuv1-dev libx11-xcb-dev libxcb1-dev 
-        libxcb-composite0-dev libxcb-cursor-dev libxcb-damage0-dev
-        libxcb-ewmh-dev libxcb-glx0-dev libxcb-icccm4-dev 
-        libxcb-keysyms1-dev libxcb-present-dev libxcb-randr0-dev 
-        libxcb-render0-dev libxcb-render-util0-dev libxcb-shape0-dev 
-        libxcb-util0-dev libxcb-xfixes0-dev libxcb-xinerama0-dev 
-        libxcb-xkb-dev libxcb-xrm-dev libxcb-xtest0-dev libxcursor-dev 
-        libxext-dev libxi-dev libxinerama-dev libxkbcommon-x11-dev 
-        libxrandr-dev libxxhash-dev ligolo-ng locate lxc maven 
-        mdbtools meson mingw-w64-tools mongo-tools 
+        ligolo-ng locate lxc maven
+	mdbtools meson mingw-w64-tools mongo-tools 
         mono-devel mutt ncat neo4j netexec nmap nodejs npm 
         odat pacu padbuster pdfid pdf-parser peass pgcli 
         php-curl phpggc pidgin pipx pkg-config pngcrush polybar 
@@ -189,6 +192,14 @@ function update_arch(){
     cd /home/$SUDO_USER/Downloads
     # Listado único de todos los paquetes agrupados
     packages=(
+        lftp libcanberra-gtk-module libconfig 
+        libev libevdev libffi libgl libglib2 
+        liblcms2 libldap libmemcached libpcap 
+        libpng16 libpopt libprotobuf libproxychains
+        proxychains libpst libreoffice librsync 
+        libsasl2 libwebp libxcb libxcursor 
+        libxext libxi libxinerama libxkbcommon-x11 
+        libxrandr ligolo-ng lxc maim make
         acl adb antiword autoconf 
         bat bc binwalk bloodhound brightnessctl 
         bruteforce-luks bspwm caja cargo 
@@ -204,15 +215,7 @@ function update_arch(){
         gvfs-mtp hash-identifier hexchat 
         html2text htop hurl i3lock-color 
         imagemagick impacket inetutils irssi 
-        jadx jgmenu jq keepassxc kitty krb5 
-        lftp libcanberra-gtk-module libconfig 
-        libev libevdev libffi libgl libglib2 
-        liblcms2 libldap libmemcached libpcap 
-        libpng16 libpopt libprotobuf libproxychains
-        proxychains libpst libreoffice librsync 
-        libsasl2 libwebp libxcb libxcursor 
-        libxext libxi libxinerama libxkbcommon-x11 
-        libxrandr ligolo-ng lxc maim make 
+        jadx jgmenu jq keepassxc kitty krb5  
         maven mesa meson mpc mpd mpv
         mutt mysql-clients ncmpcpp neovim 
         nodejs npm ntfs-3g openssh openssl 
