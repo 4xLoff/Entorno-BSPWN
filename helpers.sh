@@ -46,12 +46,6 @@ function check_os() {
         echo -e "\n${yellowColour}The system is Debian or Ubuntu${endColour}\n"
         sudo apt install curl wget git dpkg gnupg  -y
         echo -e "${yellowColour}Add repo kali.${endColour}"
-        sudo rm -f "/etc/apt/sources.list.d/kali.list"
-        echo "deb http://http.kali.org/kali kali-rolling main contrib non-free" | sudo tee "/etc/apt/sources.list.d/kali.list"
-        sudo curl -fsSL https://archive.kali.org/archive-key.asc | sudo gpg --dearmor -o "/etc/apt/trusted.gpg.d/kali-archive-keyring.gpg"
-	#sudo rm -f /etc/apt/sources.list.d/kali.list
-	#sudo rm -f /etc/apt/trusted.gpg.d/kali-archive-keyring.gpg
-
         sudo apt clean
         sudo apt update -y
         sudo apt upgrade -y
