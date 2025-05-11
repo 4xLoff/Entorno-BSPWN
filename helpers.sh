@@ -13,9 +13,7 @@ turquoiseColour="\e[0;36m\033[1m"
 grayColour="\e[0;37m\033[1m"
 
 export DEBIAN_FRONTEND=noninteractive
-
 APT_FLAGS=(-yq -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold")
-
 
 trap ctrl_c INT
 
@@ -36,6 +34,7 @@ function check_os() {
     sudo -u "$SUDO_USER" mkdir -p "/home/$SUDO_USER/Downloads"
     sudo find "/home/$SUDO_USER/" -type d -name "Entorno-BSPWN" -exec mv {} "/home/$SUDO_USER/Downloads/" \;
     cd /home/$SUDO_USER/Downloads
+    sudo sed -i 's/^#\$nrconf{restart} =.*/$nrconf{restart} = '\''a'\'';/' /etc/needrestart/needrestart.conf
     sudo sed -i "s/#\$nrconf{kernelhints} = -1;/\$nrconf{kernelhints} = -1;/g" /etc/needrestart/needrestart.conf
     sudo sed -i "s/#NR_NOTIFYD_DISABLE_NOTIFY_SEND='1'/NR_NOTIFYD_DISABLE_NOTIFY_SEND='1'/" /etc/needrestart/notify.conf
     if [[ -f /etc/os-release && $(grep -q "kali" /etc/os-release; echo $?) -eq 0 ]]; then
@@ -46,9 +45,9 @@ function check_os() {
         echo -e "\n${yellowColour}The system is Debian or Ubuntu${endColour}\n"
         sudo apt install curl wget git dpkg gnupg  -y
         echo -e "${yellowColour}Add repo kali.${endColour}"
-        sudo apt clean
-        sudo apt update -y
-        sudo apt upgrade -y
+        sudo apt-get clean
+        sudo apt-get update -y
+        sudo apt-get upgrade -y
         update_debian
     elif [[ -f /etc/arch-release ]]; then
         echo -e "\n${yellowColour}The system is Arch Linux${endColour}\n"
@@ -105,7 +104,7 @@ function update_debian() {
     fi
     packages=(
         lftp libasound2-dev libbsd-dev libbz2-dev
-        libcairo2-dev libconfig-dev libcryptsetup-dev 
+        libcairo2-dev libconfig-dev libxcursor-dev
         libdb5.3-dev libdbus-1-dev libemail-outlook-message-perl 
         libev-dev libevdev-dev libffi-dev 
         libfontconfig1-dev libgdbm-dev libgl1-mesa-dev 
@@ -126,7 +125,7 @@ function update_debian() {
         libxcb-keysyms1-dev libxcb-present-dev libxcb-randr0-dev 
         libxcb-render0-dev libxcb-render-util0-dev libxcb-shape0-dev 
         libxcb-util0-dev libxcb-xfixes0-dev libxcb-xinerama0-dev 
-        libxcb-xkb-dev libxcb-xrm-dev libxcb-xtest0-dev libxcursor-dev 
+        libxcb-xkb-dev libxcb-xrm-dev libxcb-xtest0-dev 
         libxext-dev libxi-dev libxinerama-dev libxkbcommon-x11-dev 
         libxrandr-dev libxxhash-dev acl 
 	adb antiword apktool aptitude
@@ -137,23 +136,23 @@ function update_debian() {
         cloud-enum cmake cmake-data crackmapexec 
         crunch cutycapt davtest dbeaver derby-tools 
         default-mysql-client dex2jar dh-autoreconf 
-        djvulibre-bin dnsrecon docker.io dotnet-sdk-6.0 
+        djvulibre-bin dnsrecon docker.io 
         encfs enum4linux enum4linux-ng evince 
         evolution exiftool exploitdb extundelete 
         feh ffuf flameshot flite fontconfig 
         freerdp2-dev freerdp2-x11 fuse 
-        gcc-multilib gimp gitleaks glusterfs-server 
+        gcc-multilib gimp glusterfs-server 
         gnupg gospider gpp-decrypt gss-ntlmssp 
         hash-identifier hexchat hexedit html2text 
         hurl imagemagick impacket-scripts 
         inetutils-ftp irssi jadx jd-gui jq kcat 
         keepassxc kitty knockd kpcli krb5-user 
-        ligolo-ng locate lxc maven
-	mdbtools meson mingw-w64-tools mongo-tools 
+        locate lxc maven
+	mdbtools meson mingw-w64-tools 
         mono-devel mutt ncat neo4j netexec nmap nodejs npm 
         odat pacu padbuster pdfid pdf-parser peass pgcli 
         php-curl phpggc pidgin pipx pkg-config pngcrush polybar 
-        powercat powershell powershell-empire powersploit 
+        powercat powershell-empire powersploit 
         protobuf-compiler pst-utils putty-tools python3 python3-dev 
         python3-impacket python3-ldap python3-ldapdomaindump 
         python3-pip python3-sphinx python3-xcbgen qrencode radare2 
@@ -164,7 +163,7 @@ function update_debian() {
         software-properties-common sprayingtoolkit squidclient 
         steghide sublist3r subversion suckless-tools sucrack 
         swaks tcpdump tesseract-ocr tigervnc-viewer tnscmd10g 
-        translate-shell uthash-dev veil vim wayland-protocols 
+        translate-shell uthash-dev veil wayland-protocols 
         amass whatweb wkhtmltopdf wmis xcb-proto xclip xpdf 
         xtightvncviewer zbar-tools zlib1g-dev zsh 
         zsh-syntax-highlighting
