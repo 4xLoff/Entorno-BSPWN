@@ -512,11 +512,11 @@ function enviroment(){
     sudo rm -rf /home/$SUDO_USER/.config/nvim
     sudo wget -q https://github.com/neovim/neovim-releases/releases/download/v0.10.1/nvim-linux64.deb 
     sudo dpkg -i nvim-linux64.deb 
-    sudo -u "$SUDO_USER" git clone https://github.com/NvChad/starter /home/$SUDO_USER/.config/nvim && nvim
-    sudo -u "$SUDO_USER" nvim --headless '+Lazy! sync' +qa
+    sudo -u "$SUDO_USER" git clone https://github.com/NvChad/starter /home/$SUDO_USER/.config/nvim && nvim --headless '+Lazy! sync' +qa
+    #sudo -u "$SUDO_USER" nvim --headless '+Lazy! sync' +qa
     sudo rm -rf /root/.config/nvim
-    sudo git clone https://github.com/NvChad/starter /root/.config/nvim && nvim
-    sudo nvim --headless '+Lazy! sync' +qa
+    sudo git clone https://github.com/NvChad/starter /root/.config/nvim && nvim --headless '+Lazy! sync' +qa
+    #sudo nvim --headless '+Lazy! sync' +qa 
     sudo ln -s -f "/home/$SUDO_USER/.p10k.zsh" "/root/.p10k.zsh"
     sudo usermod --shell /usr/bin/zsh "$SUDO_USER"
     sudo usermod --shell /usr/bin/zsh root
@@ -724,6 +724,7 @@ function spotify(){
 
 function clean() {
     echo -ne "\n\t${purpleColour}We are cleaning everything.${endColour}"
+    sudo chown root:root /usr/local/share/zsh/site-functions/_bspc
     sudo rm -rf /home/$SUDO_USER/Downloads/*
     sudo find . -type d -name "Entorno-BSPWN"  -exec rm -r {} \;
     if [[ -f /etc/os-release ]]; then
@@ -739,7 +740,6 @@ function clean() {
             sudo pacman -Rns $(pacman -Qdtq) --noconfirm
             echo -ne "\n\t${purpleColour}Habilitando demonios.${endColour}"
             localectl set-x11-keymap es
-            sudo chown root:root /usr/local/share/zsh/site-functions/_bspc
             sudo systemctl enable vmtoolsd
             sudo systemctl enable gdm.service
             sudo systemctl start gdm.service
