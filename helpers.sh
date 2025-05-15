@@ -82,6 +82,9 @@ function update_debian() {
     echo -e "${yellowColour}Installing additional packages for the correct functioning of the environment.${endColour}"
     cd /home/$SUDO_USER/Downloads 
     sudo apt remove --purge codium -y
+    sudo apt remove --purge vi -y
+    sudo apt remove --purge vim -y
+    sudo apt remove --purge vin -y
     sudo apt remove --purge nvim -y
     sudo apt remove --purge neovim -y
     echo -e "${yellowColour}Install rustscan.${endColour}"
@@ -513,10 +516,8 @@ function enviroment(){
     sudo wget -q https://github.com/neovim/neovim-releases/releases/download/v0.10.1/nvim-linux64.deb 
     sudo dpkg -i nvim-linux64.deb 
     sudo -u "$SUDO_USER" git clone https://github.com/NvChad/starter /home/$SUDO_USER/.config/nvim && nvim --headless '+Lazy! sync' +qa
-    #sudo -u "$SUDO_USER" nvim --headless '+Lazy! sync' +qa
     sudo rm -rf /root/.config/nvim
     sudo git clone https://github.com/NvChad/starter /root/.config/nvim && nvim --headless '+Lazy! sync' +qa
-    #sudo nvim --headless '+Lazy! sync' +qa 
     sudo ln -s -f "/home/$SUDO_USER/.p10k.zsh" "/root/.p10k.zsh"
     sudo usermod --shell /usr/bin/zsh "$SUDO_USER"
     sudo usermod --shell /usr/bin/zsh root
